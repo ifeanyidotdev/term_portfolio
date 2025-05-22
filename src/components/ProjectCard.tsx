@@ -1,7 +1,6 @@
 
 import type React from 'react';
 import Image from 'next/image';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Github, ExternalLink, Code2 } from 'lucide-react';
 
@@ -22,53 +21,50 @@ interface ProjectCardProps {
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   return (
-    <Card className="bg-card shadow-lg overflow-hidden flex flex-col h-full">
-      <CardHeader>
-        <div className="aspect-[16/9] relative w-full overflow-hidden rounded-t-md">
-          <Image 
-            src={project.image} 
-            alt={project.title} 
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-cover"
-            data-ai-hint={project.dataAiHint || "technology abstract"}
-          />
+    <div className="border border-border rounded-md p-3 bg-card/70 shadow-md flex flex-col h-full text-sm"> {/* Adjusted padding and base text size */}
+      <div className="aspect-[16/9] relative w-full overflow-hidden rounded-sm mb-2">
+        <Image
+          src={project.image}
+          alt={project.title}
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          className="object-cover"
+          data-ai-hint={project.dataAiHint || "technology abstract"}
+        />
+      </div>
+      <h3 className="text-lg text-primary font-semibold">{project.title}</h3> {/* Adjusted title size */}
+      <p className="text-xs md:text-sm text-muted-foreground mt-1 mb-2 flex-grow h-16 overflow-y-auto">{project.description}</p> {/* Adjusted description size and height */}
+
+      <div className="mb-2">
+        <h4 className="text-xs font-semibold text-foreground mb-1 flex items-center">
+          <Code2 size={14} className="mr-1 text-accent" /> {/* Adjusted icon size */}
+          Technologies:
+        </h4>
+        <div className="flex flex-wrap gap-1">
+          {project.technologies.map((tech) => (
+            <span key={tech} className="px-1.5 py-0.5 bg-secondary text-secondary-foreground text-[10px] rounded-xs">
+              {tech}
+            </span>
+          ))}
         </div>
-        <CardTitle className="mt-4 text-2xl text-primary">{project.title}</CardTitle>
-        <CardDescription className="text-muted-foreground h-20 overflow-y-auto">{project.description}</CardDescription>
-      </CardHeader>
-      <CardContent className="flex-grow">
-        <div className="mb-4">
-          <h4 className="text-sm font-semibold text-foreground mb-2 flex items-center">
-            <Code2 size={18} className="mr-2 text-accent" />
-            Technologies Used:
-          </h4>
-          <div className="flex flex-wrap gap-2">
-            {project.technologies.map((tech) => (
-              <span key={tech} className="px-2 py-1 bg-secondary text-secondary-foreground text-xs rounded-sm">
-                {tech}
-              </span>
-            ))}
-          </div>
-        </div>
-      </CardContent>
-      <CardFooter className="mt-auto flex flex-wrap gap-2 justify-start">
+      </div>
+      <div className="mt-auto flex flex-wrap gap-1.5 justify-start"> {/* Reduced gap */}
         {project.repoUrl && (
-          <Button variant="outline" size="sm" asChild>
+          <Button variant="outline" size="sm" asChild className="text-xs px-2 py-1 h-auto"> {/* More compact button */}
             <a href={project.repoUrl} target="_blank" rel="noopener noreferrer">
-              <Github size={16} className="mr-2" /> GitHub
+              <Github size={12} className="mr-1" /> GitHub
             </a>
           </Button>
         )}
         {project.liveUrl && (
-          <Button variant="default" size="sm" asChild className="bg-primary hover:bg-primary/90">
+          <Button variant="default" size="sm" asChild className="bg-primary hover:bg-primary/90 text-xs px-2 py-1 h-auto"> {/* More compact button */}
             <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-              <ExternalLink size={16} className="mr-2" /> Live Demo
+              <ExternalLink size={12} className="mr-1" /> Live Demo
             </a>
           </Button>
         )}
-      </CardFooter>
-    </Card>
+      </div>
+    </div>
   );
 };
 

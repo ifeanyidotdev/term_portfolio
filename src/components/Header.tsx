@@ -1,16 +1,7 @@
-
 import type React from 'react';
-import BlinkingCursor from './BlinkingCursor';
 
-const Header: React.FC = () => {
-  return (
-    <header className="py-6 text-center md:text-left">
-      <h1 className="text-4xl md:text-5xl font-bold text-primary text-shadow-primary inline-flex items-center">
-        DevTerm
-        <BlinkingCursor />
-      </h1>
-    </header>
-  );
+const BlinkingCursor: React.FC = () => {
+  return <span className="animate-blink w-[3px] h-[1.1em] bg-accent inline-block ml-0.5 align-text-bottom" aria-hidden="true"></span>; // Adjusted size and alignment
 };
 
-export default Header;
+export default BlinkingCursor;

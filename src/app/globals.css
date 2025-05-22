@@ -86,12 +86,17 @@ body {
 }
  
 @layer base {
-  * {
-    @apply border-border;
+  html, body, #__next { /* Ensure #__next also takes full height if Next.js adds a wrapper */
+    height: 100%;
+    margin: 0;
+    padding: 0;
   }
   body {
     @apply bg-background text-foreground;
-    min-height: 100vh;
+    min-height: 100vh; /* Fallback for older browsers or complex setups */
+  }
+  * {
+    @apply border-border;
   }
 }
 

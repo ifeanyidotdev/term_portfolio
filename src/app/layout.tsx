@@ -4,7 +4,6 @@ import { Geist_Mono } from 'next/font/google';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 
-// Removed Geist (Sans) as Mono will be the primary font for terminal look
 const geistMono = Geist_Mono({
   variable: '--font-geist-mono',
   subsets: ['latin'],
@@ -18,11 +17,11 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode; 
 }>) {
   return (
-    <html lang="en" className="dark">
-      <body className={`${geistMono.variable} font-mono antialiased`}>
+    <html lang="en" className="dark"> {/* Default to dark theme, can be changed by 'theme' command */}
+      <body className={`${geistMono.variable} font-mono antialiased h-full`}>
         {children}
         <Toaster />
       </body>

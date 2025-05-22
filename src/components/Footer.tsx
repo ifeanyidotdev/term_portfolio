@@ -1,18 +1,7 @@
-
 import type React from 'react';
 
-const Footer: React.FC = () => {
-  const currentYear = new Date().getFullYear();
-  return (
-    <footer className="py-8 mt-12 border-t border-border text-center">
-      <p className="text-sm text-muted-foreground">
-        &copy; {currentYear} DevTerm Portfolio. All rights reserved.
-      </p>
-      <p className="text-xs text-muted-foreground/70 mt-1">
-        Powered by Next.js, Tailwind CSS, and a touch of terminal magic.
-      </p>
-    </footer>
-  );
+const BlinkingCursor: React.FC = () => {
+  return <span className="animate-blink w-[3px] h-[1.1em] bg-accent inline-block ml-0.5 align-text-bottom" aria-hidden="true"></span>; // Adjusted size and alignment
 };
 
-export default Footer;
+export default BlinkingCursor;

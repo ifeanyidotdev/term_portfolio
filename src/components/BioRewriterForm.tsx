@@ -12,7 +12,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { CardContent, CardFooter } from '@/components/ui/card'; // Only need CardContent and CardFooter for structure
 import { Loader2, Wand2 } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 
@@ -70,63 +70,63 @@ const BioRewriterForm: React.FC = () => {
   };
 
   return (
-    <Card className="bg-card shadow-xl">
-      <CardHeader>
-        <CardTitle className="flex items-center text-xl text-primary">
-          <Wand2 size={24} className="mr-2" />
+    <div className="mt-2 p-1 bg-card/30 rounded-md"> {/* Removed Card, added slight background and rounding */}
+      <div className="px-4 pt-3"> {/* Mimic CardHeader padding */}
+        <h2 className="flex items-center text-lg md:text-xl text-primary font-semibold"> {/* Adjusted title size */}
+          <Wand2 size={20} className="mr-2" /> {/* Adjusted icon size */}
           AI Bio/Cover Letter Rewriter
-        </CardTitle>
-        <CardDescription className="text-muted-foreground">
+        </h2>
+        <p className="text-xs md:text-sm text-muted-foreground mt-1 mb-3"> {/* Adjusted description size */}
           Input your current bio or cover letter, select a tone and specify industry standards (optional), then let AI enhance it for you.
-        </CardDescription>
-      </CardHeader>
+        </p>
+      </div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <CardContent className="space-y-6">
+        <CardContent className="space-y-4 !pt-0"> {/* Adjusted spacing and removed CardContent default top padding */}
           <div>
-            <Label htmlFor="bioText" className="block text-sm font-medium text-foreground mb-1">Your Text (Bio/Cover Letter)</Label>
+            <Label htmlFor="bioText" className="block text-xs font-medium text-foreground mb-1">Your Text (Bio/Cover Letter)</Label>
             <Textarea
               id="bioText"
               {...register("text")}
-              rows={6}
-              className="bg-input border-border focus:ring-accent"
+              rows={5} /* Reduced rows */
+              className="bg-input border-border focus:ring-accent text-sm" /* Ensured text-sm for consistency */
               placeholder="Paste your bio or cover letter here..."
             />
-            {errors.text && <p className="text-sm text-destructive mt-1">{errors.text.message}</p>}
+            {errors.text && <p className="text-xs text-destructive mt-1">{errors.text.message}</p>}
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3"> {/* Reduced gap */}
             <div>
-              <Label htmlFor="tone" className="block text-sm font-medium text-foreground mb-1">Desired Tone</Label>
+              <Label htmlFor="tone" className="block text-xs font-medium text-foreground mb-1">Desired Tone</Label>
                <Select defaultValue="Professional" onValueChange={(value) => control._fields.tone = { name: 'tone', value } as any}>
-                <SelectTrigger id="tone" className="w-full bg-input border-border focus:ring-accent">
+                <SelectTrigger id="tone" className="w-full bg-input border-border focus:ring-accent text-xs h-9"> {/* Adjusted size */}
                   <SelectValue placeholder="Select a tone" />
                 </SelectTrigger>
-                <SelectContent>
-                  {tones.map(t => <SelectItem key={t} value={t}>{t}</SelectItem>)}
+                <SelectContent className="text-xs"> {/* Ensure dropdown items are also small */}
+                  {tones.map(t => <SelectItem key={t} value={t} className="text-xs">{t}</SelectItem>)}
                 </SelectContent>
               </Select>
             </div>
             <div>
-              <Label htmlFor="industryStandards" className="block text-sm font-medium text-foreground mb-1">Industry Standards (Optional)</Label>
+              <Label htmlFor="industryStandards" className="block text-xs font-medium text-foreground mb-1">Industry Standards (Optional)</Label>
               <Input
                 id="industryStandards"
                 {...register("industryStandards")}
-                className="bg-input border-border focus:ring-accent"
+                className="bg-input border-border focus:ring-accent text-xs h-9" /* Adjusted size */
                 placeholder="e.g., Tech, Marketing, Academia"
               />
             </div>
           </div>
         </CardContent>
-        <CardFooter className="flex justify-end">
-          <Button type="submit" disabled={isLoading} className="bg-primary hover:bg-primary/90 text-primary-foreground">
+        <CardFooter className="flex justify-end !pt-0"> {/* Removed CardFooter default top padding */}
+          <Button type="submit" disabled={isLoading} size="sm" className="bg-primary hover:bg-primary/90 text-primary-foreground text-xs"> {/* Adjusted size */}
             {isLoading ? (
               <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" /> {/* Adjusted icon size */}
                 Rewriting...
               </>
             ) : (
               <>
-                <Wand2 className="mr-2 h-4 w-4" />
+                <Wand2 className="mr-1.5 h-3.5 w-3.5" /> {/* Adjusted icon size */}
                 Rewrite with AI
               </>
             )}
@@ -135,14 +135,14 @@ const BioRewriterForm: React.FC = () => {
       </form>
 
       {rewrittenText && (
-        <CardContent>
-          <h3 className="text-lg font-semibold text-foreground mt-4 mb-2">Rewritten Text:</h3>
-          <div className="p-4 bg-input rounded-md whitespace-pre-wrap text-muted-foreground">
+        <CardContent className="!pt-2"> {/* Adjusted padding */}
+          <h3 className="text-sm md:text-base font-semibold text-foreground mt-3 mb-1.5">Rewritten Text:</h3> {/* Adjusted sizes */}
+          <div className="p-3 bg-input rounded-md whitespace-pre-wrap text-muted-foreground text-xs md:text-sm max-h-60 overflow-y-auto"> {/* Added max-height and scroll */}
             {rewrittenText}
           </div>
         </CardContent>
       )}
-    </Card>
+    </div>
   );
 };
 
