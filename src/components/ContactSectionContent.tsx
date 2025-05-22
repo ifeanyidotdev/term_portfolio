@@ -26,8 +26,10 @@ const ContactSectionContent: React.FC = () => {
         {socialLinks.map((link) => (
           <Button key={link.name} variant="outline" size="sm" asChild className="border-accent text-accent hover:bg-accent hover:text-accent-foreground focus:ring-accent text-xs md:text-sm">
             <a href={link.url} target={link.name === 'Email' ? '_self' : '_blank'} rel="noopener noreferrer" className="flex items-center">
-              <link.icon size={16} className="mr-1.5" /> {/* Adjusted icon size and margin */}
-              {link.name}
+              <span>
+                <link.icon size={16} className="mr-1.5" /> {/* Adjusted icon size and margin */}
+                {link.name}
+              </span>
             </a>
           </Button>
         ))}
