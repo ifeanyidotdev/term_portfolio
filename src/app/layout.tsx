@@ -20,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode; 
 }>) {
   return (
-    <html lang="en" className="dark">{/* Default to dark theme, can be changed by 'theme' command */}
+    <html lang="en" className="dark" suppressHydrationWarning={true}>{/* Default to dark theme, can be changed by 'theme' command */}
       <body className={`${geistMono.variable} font-mono antialiased h-full`}>
         {children}
         <Toaster />
