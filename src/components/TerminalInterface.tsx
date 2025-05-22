@@ -216,14 +216,14 @@ const TerminalInterface: React.FC = () => {
           type="text"
           value={input}
           onChange={handleInputChange}
-          className="flex-grow bg-transparent border-none focus:ring-0 focus:outline-none p-0 text-base md:text-lg text-foreground caret-transparent" 
+          className="flex-grow bg-transparent border-none focus:ring-0 focus:outline-none p-0 text-base md:text-lg text-foreground" 
           placeholder=""
           disabled={isProcessing}
           spellCheck="false"
           autoComplete="off"
           autoCapitalize="off"
         />
-        {!isProcessing && <BlinkingCursor />}
+        {!isProcessing && input === '' && <BlinkingCursor />}
       </form>
     </div>
   );
