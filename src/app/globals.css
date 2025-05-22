@@ -48,51 +48,51 @@ body {
   }
  
   .dark {
-    /* One Dark Theme Inspired */
-    --background: 220 13% 18%;    /* #282c34 */
-    --foreground: 220 14% 75%;    /* #abb2bf */
+    /* Cyberpunk Neon Theme */
+    --background: 240 10% 4%;    /* Very dark blue/almost black */
+    --foreground: 180 100% 90%;   /* Light cyan/off-white */
     
-    --card: 220 13% 20%;          /* Slightly lighter than background */
-    --card-foreground: 220 14% 75%; /* #abb2bf */
+    --card: 240 10% 8%;          /* Slightly lighter than background */
+    --card-foreground: 180 100% 90%; /* Light cyan/off-white */
     
-    --popover: 220 13% 16%;       /* Slightly darker than background for popovers */
-    --popover-foreground: 220 14% 75%; /* #abb2bf */
+    --popover: 240 10% 6%;       /* Slightly darker for popovers */
+    --popover-foreground: 180 100% 90%; /* Light cyan/off-white */
     
-    --primary: 282 59% 67%;       /* #c678dd (Purple) */
-    --primary-foreground: 220 14% 95%; /* Very light grey for contrast on purple */
+    --primary: 300 100% 70%;       /* Bright magenta/pink */
+    --primary-foreground: 240 10% 96%; /* Very light text for contrast on magenta */
     
-    --secondary: 95 38% 72%;      /* #98c379 (Green) */
-    --secondary-foreground: 220 13% 18%; /* Dark text for contrast on green */
+    --secondary: 150 100% 60%;      /* Neon green */
+    --secondary-foreground: 240 10% 4%; /* Dark text for contrast on green */
     
-    --muted: 220 10% 40%;         /* #5c6370 (Medium Grey for comments/muted) */
-    --muted-foreground: 220 10% 65%; /* Lighter grey for muted text */
+    --muted: 240 5% 30%;         /* Dark grey for muted elements */
+    --muted-foreground: 240 5% 65%; /* Lighter grey for muted text */
     
-    --accent: 207 82% 66%;        /* #61afef (Blue) */
-    --accent-foreground: 220 13% 12%; /* Darker text for contrast on blue accent */
+    --accent: 200 100% 65%;        /* Electric blue */
+    --accent-foreground: 240 10% 96%; /* Very light text for contrast on blue accent */
     
-    --destructive: 355 65% 64%;   /* #e06c75 (Red) */
-    --destructive-foreground: 220 14% 95%; /* Light text for destructive actions */
+    --destructive: 0 100% 60%;   /* Bright red */
+    --destructive-foreground: 0 0% 100%; /* White text for destructive actions */
     
-    --border: 220 10% 30%;        /* A visible border color */
-    --input: 220 13% 22%;         /* Input background, slightly different from card */
-    --ring: 207 82% 66%;          /* Blue for focus rings, matching accent */
+    --border: 240 10% 15%;        /* A visible border color, subtle neon hint */
+    --input: 240 10% 10%;         /* Input background, slightly different from card */
+    --ring: 200 100% 65%;          /* Electric blue for focus rings, matching accent */
     
-    /* Chart colors based on One Dark palette */
-    --chart-1: 207 82% 66%;    /* Blue (Accent) */
-    --chart-2: 282 59% 67%;    /* Purple (Primary) */
-    --chart-3: 95 38% 72%;     /* Green (Secondary) */
-    --chart-4: 177 58% 65%;    /* Cyan (#56b6c2) */
-    --chart-5: 39 72% 70%;     /* Yellow (#e5c07b) */
+    /* Chart colors with neon vibes */
+    --chart-1: 200 100% 65%;    /* Electric Blue (Accent) */
+    --chart-2: 300 100% 70%;    /* Magenta (Primary) */
+    --chart-3: 150 100% 60%;     /* Neon Green (Secondary) */
+    --chart-4: 60 100% 60%;    /* Bright Yellow */
+    --chart-5: 30 100% 65%;     /* Bright Orange */
 
-    /* Sidebar colors aligned with One Dark */
-    --sidebar-background: 220 13% 16%; /* Slightly darker than main bg */
-    --sidebar-foreground: 220 14% 75%; /* Main foreground */
-    --sidebar-primary: 207 82% 66%;    /* Accent Blue */
-    --sidebar-primary-foreground: 220 13% 18%; /* Dark text for primary */
-    --sidebar-accent: 95 38% 72%;      /* Secondary Green */
-    --sidebar-accent-foreground: 220 13% 18%; /* Dark text for accent */
-    --sidebar-border: 220 10% 25%;     /* Darker border for sidebar */
-    --sidebar-ring: 207 82% 66%;       /* Accent Blue for ring */
+    /* Sidebar colors aligned with Cyberpunk Neon */
+    --sidebar-background: 240 10% 3%; /* Even darker for sidebar */
+    --sidebar-foreground: 180 100% 90%; /* Main foreground */
+    --sidebar-primary: 200 100% 65%;    /* Accent Blue */
+    --sidebar-primary-foreground: 240 10% 4%; /* Dark text for primary */
+    --sidebar-accent: 150 100% 60%;      /* Secondary Green */
+    --sidebar-accent-foreground: 240 10% 4%; /* Dark text for accent */
+    --sidebar-border: 240 10% 10%;     /* Darker border for sidebar */
+    --sidebar-ring: 200 100% 65%;       /* Accent Blue for ring */
   }
 }
  
