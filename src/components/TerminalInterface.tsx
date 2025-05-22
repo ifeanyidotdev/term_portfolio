@@ -48,13 +48,20 @@ const TerminalInterface: React.FC = () => {
       if (inputRef.current && terminalContainerRef.current) {
         let target = event.target as HTMLElement;
         let isInteractive = false;
+        // Traverse up the DOM tree from the click target
         while(target && target !== terminalContainerRef.current) {
-          if (['BUTTON', 'A', 'INPUT', 'TEXTAREA', 'SELECT'].includes(target.tagName) || target.closest('[role="button"], [role="link"], [role="checkbox"], [role="radio"], [role="slider"], [role="switch"], [role="tab"], [role="option"]') || target.isContentEditable) {
+          // Check for common interactive elements by tag name
+          if (['BUTTON', 'A', 'INPUT', 'TEXTAREA', 'SELECT'].includes(target.tagName) ||
+              // Check for elements with specific ARIA roles implying interactivity
+              target.closest('[role="button"], [role="link"], [role="checkbox"], [role="radio"], [role="slider"], [role="switch"], [role="tab"], [role="option"]') ||
+              // Check if the element is content editable
+              target.isContentEditable) {
             isInteractive = true;
             break;
           }
           target = target.parentElement as HTMLElement;
         }
+        // If the click was not on an interactive element (or its descendant), focus the main input
         if(!isInteractive) {
              inputRef.current.focus();
         }
@@ -72,11 +79,13 @@ const TerminalInterface: React.FC = () => {
     setIsProcessing(true);
     
     const commandToAdd: HistoryEntry = { id: Date.now(), type: 'command', content: commandStr };
+    // Use a functional update to ensure we're working with the latest history state
     setHistory(prev => [...prev, commandToAdd]);
 
     const [command, ...args] = commandStr.trim().toLowerCase().split(/\s+/);
     let outputEntry: HistoryEntry | null = null;
 
+    // Simulate processing delay
     await new Promise(resolve => setTimeout(resolve, 100 + Math.random() * 200));
 
     switch (command) {
@@ -111,9 +120,9 @@ const TerminalInterface: React.FC = () => {
         outputEntry = { id: Date.now() + 1, type: 'component', content: <ContactSectionContent /> };
         break;
       case 'clear':
-        setHistory([]);
-        setIsProcessing(false);
-        return;
+        setHistory([]); // Clears history, effectively "clearing" the screen
+        setIsProcessing(false); // Reset processing state
+        return; // Exit early, no further output needed
       case 'date':
         outputEntry = { id: Date.now() + 1, type: 'output', content: new Date().toLocaleString() };
         break;
@@ -131,19 +140,20 @@ const TerminalInterface: React.FC = () => {
           htmlEl.classList.add('dark');
           outputEntry = { id: Date.now() + 1, type: 'system', content: 'Theme set to dark.' };
         } else if (args[0] === 'system') {
-            htmlEl.classList.remove('light', 'dark');
+            htmlEl.classList.remove('light', 'dark'); // Remove specific theme classes
+             // Check system preference and apply dark if preferred, otherwise default (light)
              if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
                 htmlEl.classList.add('dark');
              } else {
                 // Assuming light is the default if no dark preference or if light is preferred
-                // No specific class needed if :root styles are light by default
+                // No specific class needed if :root styles are light by default or already set
              }
             outputEntry = { id: Date.now() + 1, type: 'system', content: 'Theme set to system preference.' };
         } else {
           outputEntry = { id: Date.now() + 1, type: 'error', content: 'Usage: theme [light|dark|system]' };
         }
         break;
-      case '':
+      case '': // Handle empty command submission (already added to history by handleFormSubmit)
         setIsProcessing(false);
         return;
       default:
@@ -151,10 +161,11 @@ const TerminalInterface: React.FC = () => {
     }
 
     if (outputEntry) {
+        // Use a functional update here as well if outputEntry depends on previous history
         setHistory(prev => [...prev, outputEntry!]);
     }
     setIsProcessing(false);
-  }, []);
+  }, []); // Dependencies for processCommand, ensure it's stable if not changing
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
@@ -165,18 +176,22 @@ const TerminalInterface: React.FC = () => {
     if (isProcessing) return;
 
     const commandToProcess = input;
-    setInput(''); 
+    setInput(''); // Clear input immediately
 
     if (commandToProcess.trim() === '') {
+      // Add empty command to history
       setHistory(prev => [...prev, { id: Date.now(), type: 'command', content: '' }]);
     } else {
+      // Process the command
       await processCommand(commandToProcess);
     }
+    // Re-focus the input field after any command submission (empty or processed)
+    inputRef.current?.focus();
   }, [input, isProcessing, processCommand]);
   
   return (
-    <div ref={terminalContainerRef} className="p-3 bg-background text-foreground font-mono h-full flex flex-col" tabIndex={0}>
-      <div className="flex-grow overflow-y-auto pr-2 space-y-1 text-sm md:text-base">
+    <div ref={terminalContainerRef} className="p-3 bg-background text-foreground font-mono h-full flex flex-col" tabIndex={0}> {/* Added tabIndex to allow div to be focusable for clicks */}
+      <div className="flex-grow overflow-y-auto pr-2 space-y-1 text-sm md:text-base"> {/* Consistent text size for history */}
         {history.map((entry) => (
           <div key={entry.id}>
             {entry.type === 'command' && (
@@ -185,8 +200,9 @@ const TerminalInterface: React.FC = () => {
                 <span className="break-all">{entry.content as string}</span>
               </div>
             )}
+            {/* Ensure consistent text sizing for different output types */}
             {entry.type === 'output' && <div className="whitespace-pre-wrap text-muted-foreground">{entry.content}</div>}
-            {entry.type === 'component' && <div className="mt-1 mb-1">{entry.content}</div>}
+            {entry.type === 'component' && <div className="mt-1 mb-1">{entry.content}</div>} {/* Components manage their own sizing internally */}
             {entry.type === 'error' && <div className="whitespace-pre-wrap text-destructive">{entry.content}</div>}
             {entry.type === 'system' && <div className="whitespace-pre-wrap text-muted-foreground italic">{entry.content}</div>}
           </div>
@@ -207,6 +223,7 @@ const TerminalInterface: React.FC = () => {
           autoComplete="off"
           autoCapitalize="off"
         />
+        {/* Show blinking cursor only when not processing and input is empty */}
         {!isProcessing && !input && <BlinkingCursor />}
       </form>
     </div>
@@ -214,3 +231,4 @@ const TerminalInterface: React.FC = () => {
 };
 
 export default TerminalInterface;
+
