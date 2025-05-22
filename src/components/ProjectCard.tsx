@@ -52,18 +52,20 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
         {project.repoUrl && (
           <Button variant="outline" size="sm" asChild className="text-xs px-2 py-1 h-auto"> {/* More compact button */}
             <a href={project.repoUrl} target="_blank" rel="noopener noreferrer">
-              <>
+              {/* Use a span wrapper instead of React.Fragment */}
+              <span>
                 <Github size={12} className="mr-1" /> GitHub
-              </>
+              </span>
             </a>
           </Button>
         )}
         {project.liveUrl && (
           <Button variant="default" size="sm" asChild className="bg-primary hover:bg-primary/90 text-xs px-2 py-1 h-auto"> {/* More compact button */}
             <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-              <>
+              {/* Use a span wrapper instead of React.Fragment */}
+              <span>
                 <ExternalLink size={12} className="mr-1" /> Live Demo
-              </>
+              </span>
             </a>
           </Button>
         )}
