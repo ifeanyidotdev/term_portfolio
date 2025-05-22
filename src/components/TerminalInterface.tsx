@@ -216,19 +216,17 @@ const TerminalInterface: React.FC = () => {
           type="text"
           value={input}
           onChange={handleInputChange}
-          className="flex-grow bg-transparent border-none focus:ring-0 focus:outline-none p-0 text-base md:text-lg text-foreground" // Adjusted input text size
+          className="flex-grow bg-transparent border-none focus:ring-0 focus:outline-none p-0 text-base md:text-lg text-foreground caret-transparent" 
           placeholder=""
           disabled={isProcessing}
           spellCheck="false"
           autoComplete="off"
           autoCapitalize="off"
         />
-        {/* Show blinking cursor only when not processing and input is empty */}
-        {!isProcessing && !input && <BlinkingCursor />}
+        {!isProcessing && <BlinkingCursor />}
       </form>
     </div>
   );
 };
 
 export default TerminalInterface;
-
