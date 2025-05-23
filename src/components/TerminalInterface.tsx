@@ -133,12 +133,15 @@ const TerminalInterface: React.FC = () => {
         const htmlEl = document.documentElement;
         if (args[0] === 'light') {
           htmlEl.classList.remove('dark');
+          // htmlEl.classList.add('light'); // Not needed if :root is light theme
           outputEntry = { id: Date.now() + 1, type: 'system', content: 'Theme set to light.' };
         } else if (args[0] === 'dark') {
+          // htmlEl.classList.remove('light');
           htmlEl.classList.add('dark');
           outputEntry = { id: Date.now() + 1, type: 'system', content: 'Theme set to dark.' };
         } else if (args[0] === 'system') {
-            htmlEl.classList.remove('dark'); // Remove dark first
+            // htmlEl.classList.remove('light');
+            htmlEl.classList.remove('dark'); 
              if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
                 htmlEl.classList.add('dark');
              } // If system prefers light, no class is needed, :root styles apply.
@@ -210,18 +213,17 @@ const TerminalInterface: React.FC = () => {
           type="text"
           value={input}
           onChange={handleInputChange}
-          className="flex-grow bg-transparent border-0 focus:ring-0 focus:outline-none p-0 text-base md:text-lg text-foreground" 
+          className="flex-grow bg-transparent border-0 focus:ring-0 focus-visible:ring-0 focus:ring-offset-0 focus-visible:ring-offset-0 focus:outline-none focus-visible:outline-none p-0 text-base md:text-lg text-foreground" 
           placeholder=""
           disabled={isProcessing}
           spellCheck="false"
           autoComplete="off"
           autoCapitalize="off"
         />
-        {!isProcessing && input === '' && <BlinkingCursor />}
+        {!isProcessing && <BlinkingCursor />}
       </form>
     </div>
   );
 };
 
 export default TerminalInterface;
-
