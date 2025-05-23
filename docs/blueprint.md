@@ -1,4 +1,4 @@
-# **App Name**: DevTerm
+# **App Name**: Ifeanyis Terminal Like portfolio
 
 ## Core Features:
 
