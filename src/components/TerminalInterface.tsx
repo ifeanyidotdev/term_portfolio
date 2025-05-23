@@ -210,7 +210,7 @@ const TerminalInterface: React.FC = () => {
           type="text"
           value={input}
           onChange={handleInputChange}
-          className="flex-grow bg-transparent border-none focus:ring-0 focus:outline-none p-0 text-base md:text-lg text-foreground" 
+          className="flex-grow bg-transparent border-0 focus:ring-0 focus:outline-none p-0 text-base md:text-lg text-foreground" 
           placeholder=""
           disabled={isProcessing}
           spellCheck="false"
