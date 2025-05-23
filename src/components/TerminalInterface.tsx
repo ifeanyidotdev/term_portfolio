@@ -97,7 +97,7 @@ const TerminalInterface: React.FC = () => {
               <li><span className="text-primary">help</span>: Show this help message.</li>
               <li><span className="text-primary">about</span>: Display information about me.</li>
               <li><span className="text-primary">projects</span>: Show my projects.</li>
-              <li><span className="text-primary">bio-rewriter</span>: Access AI Bio Rewriter.</li>
+              {/* <li><span className="text-primary">bio-rewriter</span>: Access AI Bio Rewriter.</li> */}
               <li><span className="text-primary">contact</span>: Show contact information.</li>
               <li><span className="text-primary">date</span>: Display current date and time.</li>
               <li><span className="text-primary">echo [text]</span>: Print back the given text.</li>
@@ -113,9 +113,9 @@ const TerminalInterface: React.FC = () => {
       case 'projects':
         outputEntry = { id: Date.now() + 1, type: 'component', content: <ProjectsSectionContent /> };
         break;
-      case 'bio-rewriter':
-        outputEntry = { id: Date.now() + 1, type: 'component', content: <BioRewriterForm /> };
-        break;
+      // case 'bio-rewriter':
+      //   outputEntry = { id: Date.now() + 1, type: 'component', content: <BioRewriterForm /> };
+      //   break;
       case 'contact':
         outputEntry = { id: Date.now() + 1, type: 'component', content: <ContactSectionContent /> };
         break;
@@ -133,21 +133,15 @@ const TerminalInterface: React.FC = () => {
         const htmlEl = document.documentElement;
         if (args[0] === 'light') {
           htmlEl.classList.remove('dark');
-          htmlEl.classList.add('light');
           outputEntry = { id: Date.now() + 1, type: 'system', content: 'Theme set to light.' };
         } else if (args[0] === 'dark') {
-          htmlEl.classList.remove('light');
           htmlEl.classList.add('dark');
           outputEntry = { id: Date.now() + 1, type: 'system', content: 'Theme set to dark.' };
         } else if (args[0] === 'system') {
-            htmlEl.classList.remove('light', 'dark'); // Remove specific theme classes
-             // Check system preference and apply dark if preferred, otherwise default (light)
+            htmlEl.classList.remove('dark'); // Remove dark first
              if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
                 htmlEl.classList.add('dark');
-             } else {
-                // Assuming light is the default if no dark preference or if light is preferred
-                // No specific class needed if :root styles are light by default or already set
-             }
+             } // If system prefers light, no class is needed, :root styles apply.
             outputEntry = { id: Date.now() + 1, type: 'system', content: 'Theme set to system preference.' };
         } else {
           outputEntry = { id: Date.now() + 1, type: 'error', content: 'Usage: theme [light|dark|system]' };
@@ -230,3 +224,4 @@ const TerminalInterface: React.FC = () => {
 };
 
 export default TerminalInterface;
+
